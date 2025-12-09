@@ -1,35 +1,294 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Name — Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #FCFBFA;
+      --dark: #0B2545;
+      --muted: #6B7280;
+      --accent: #E3B23C;
+      --surface: #ffffff;
+      --glass: rgba(11,37,69,0.06);
+      --maxw: 1100px;
+      --nav-h: 72px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--dark);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* Container */
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px;}
+
+    /* NAV */
+    header{
+      position:fixed;left:0;right:0;top:0;height:var(--nav-h);
+      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
+      backdrop-filter: blur(6px);
+      display:flex;align-items:center;box-shadow:0 6px 18px rgba(3,10,30,0.06);z-index:60;
+    }
+    nav{width:100%;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--dark),#152f5a);
+      display:flex;align-items:center;justify-content:center;color:var(--bg);font-weight:700;font-family:Poppins;font-size:18px;
+    }
+    .brand h1{font-size:16px;margin:0;font-weight:600}
+    .menu{display:flex;gap:18px;align-items:center}
+    .menu a{color:var(--dark);text-decoration:none;font-weight:600;padding:8px 6px;border-radius:6px}
+    .menu a.active, .menu a:hover{color:var(--accent)}
+    .cta{background:var(--accent);padding:10px 14px;border-radius:10px;color:var(--dark);font-weight:700;text-decoration:none}
+
+    /* Hero */
+    .hero{padding-top:110px;padding-bottom:80px}
+    .hero-inner{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
+    .eyebrow{color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:1px;font-size:12px}
+    .hero h2{font-family:Poppins;font-size:38px;margin:12px 0 8px;line-height:1.02}
+    .hero p{color:var(--muted);margin:0 0 18px;max-width:54ch}
+    .hero .actions{display:flex;gap:12px;align-items:center}
+    .card-preview{background:var(--surface);border-radius:16px;padding:18px;box-shadow:0 10px 30px var(--glass)}
+
+    /* Sections */
+    section{padding:68px 0}
+    h3.section-title{font-family:Poppins;margin:0 0 18px;font-size:22px}
+    .about-grid{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+
+    /* Skills */
+    .skill{margin-bottom:12px}
+    .skill .label{display:flex;justify-content:space-between;font-weight:600;color:var(--muted);font-size:13px}
+    .bar{height:10px;background:#e9e9ef;border-radius:999px;margin-top:8px;overflow:hidden}
+    .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#f0cb6b);border-radius:999px}
+
+    /* Projects grid */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .project{
+      background:var(--surface);padding:16px;border-radius:12px;box-shadow:0 8px 24px var(--glass);transition:transform .35s ease, box-shadow .35s ease;
+    }
+    .project:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(11,37,69,0.12)}
+    .project img{width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:12px}
+    .project h4{margin:6px 0 4px;font-size:16px}
+    .project p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Testimonials */
+    .testimonials{display:flex;gap:12px;align-items:center}
+    .test-card{padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff, #fbfbfc);box-shadow:0 8px 24px var(--glass);max-width:520px}
+
+    /* Contact */
+    .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    input, textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #e6e7ee;font-size:14px}
+    .footer{padding:28px 0;color:var(--muted);text-align:center;font-size:14px}
+
+    /* Responsive */
+    @media (max-width:920px){
+      .hero-inner{grid-template-columns:1fr}
+      .about-grid{grid-template-columns:1fr}
+      .contact-form{grid-template-columns:1fr}
+      .menu{display:none}
+    }
+    /* small helper */
+    .muted{color:var(--muted)}
+  </style>
 </head>
 <body>
 
 <header>
-    <h1>Hello, I'm David</h1>
-    <p>Web Developer | Graphic Designer | Digital Skills Trainer</p>
+  <div class="container">
+    <nav>
+      <div class="brand">
+        <div class="logo">YC</div>
+        <div><h1>YOUR NAME</h1><div class="muted" style="font-size:12px">Full-Stack & Designer</div></div>
+      </div>
+
+      <div class="menu" id="menu">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a class="cta" href="#contact">Hire me</a>
+      </div>
+    </nav>
+  </div>
 </header>
 
-<section class="about">
-    <h2>About Me</h2>
-    <p>I am passionate about technology, design, and empowering young people with digital skills.</p>
-</section>
+<main>
+  <section id="home" class="hero">
+    <div class="container hero-inner">
+      <div>
+        <div class="eyebrow">Designer & Developer</div>
+        <h2>Modern, elegant websites & digital products that convert.</h2>
+        <p>I build responsive WordPress sites, clean UI/UX, and visual identities that help businesses grow online.</p>
+        <div class="actions">
+          <a class="cta" href="#projects">View Projects</a>
+          <a href="#contact" style="padding:10px 14px;border-radius:10px;background:transparent;border:2px solid var(--dark);text-decoration:none;font-weight:700">Contact</a>
+        </div>
+      </div>
 
-<section class="skills">
-    <h2>My Skills</h2>
-    <ul>
-        <li>Web Development</li>
-        <li>WordPress</li>
-        <li>Graphics Design</li>
-        <li>Digital Marketing</li>
-    </ul>
-</section>
+      <div class="card-preview">
+        <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1200&auto=format&fit=crop" alt="preview" style="width:100%;border-radius:8px;margin-bottom:12px">
+        <div style="font-weight:700">Featured Project</div>
+        <div class="muted" style="font-size:13px">E-commerce — WordPress & WooCommerce</div>
+      </div>
+    </div>
+  </section>
 
-<section class="contact">
-    <h2>Contact</h2>
-    <p>Email: youremail@gmail.com</p>
-</section>
+  <section id="about" class="container">
+    <h3 class="section-title">About & Skills</h3>
+    <div class="about-grid">
+      <div>
+        <p class="muted">I design and develop websites focused on performance, accessibility, and beautiful UI. I enjoy turning complex requirements into simple, delightful user experiences.</p>
+
+        <div style="margin-top:18px">
+          <div class="skill">
+            <div class="label"><span>WordPress / PHP</span><span>90%</span></div>
+            <div class="bar"><i style="width:90%"></i></div>
+          </div>
+          <div class="skill">
+            <div class="label"><span>HTML / CSS / JS</span><span>95%</span></div>
+            <div class="bar"><i style="width:95%"></i></div>
+          </div>
+          <div class="skill">
+            <div class="label"><span>UI / Graphic Design</span><span>85%</span></div>
+            <div class="bar"><i style="width:85%"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="padding:14px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
+          <div style="font-weight:700">Location</div>
+          <div class="muted" style="font-size:13px">Kajiado, Kenya</div>
+        </div>
+        <div style="padding:14px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
+          <div style="font-weight:700">Availability</div>
+          <div class="muted" style="font-size:13px">Open for freelance & projects</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="container">
+    <h3 class="section-title">Projects</h3>
+    <div class="projects-grid">
+      <article class="project">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="">
+        <h4>Project One</h4>
+        <p class="muted">WordPress e-commerce site with custom theme and performance optimizations.</p>
+      </article>
+
+      <article class="project">
+        <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=1200&auto=format&fit=crop" alt="">
+        <h4>Project Two</h4>
+        <p class="muted">Branding, UI kit and landing page for a fintech startup.</p>
+      </article>
+
+      <article class="project">
+        <img src="https://images.unsplash.com/photo-1526378723463-34f4dd48e7b6?q=80&w=1200&auto=format&fit=crop" alt="">
+        <h4>Project Three</h4>
+        <p class="muted">Portfolio site built with modern HTML/CSS and small JS animations.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="services" class="container">
+    <h3 class="section-title">Services</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+      <div style="padding:18px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
+        <div style="font-weight:700">WordPress Development</div>
+        <p class="muted" style="margin-top:8px">Custom themes, plugin setup, optimization & maintenance.</p>
+      </div>
+      <div style="padding:18px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
+        <div style="font-weight:700">Graphic Design</div>
+        <p class="muted" style="margin-top:8px">Logos, social assets, banners, and visual branding.</p>
+      </div>
+      <div style="padding:18px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
+        <div style="font-weight:700">Digital Marketing</div>
+        <p class="muted" style="margin-top:8px">SEO, social media strategies, and campaigns that convert.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="container">
+    <h3 class="section-title">Testimonials</h3>
+    <div class="testimonials">
+      <div class="test-card" id="testcard">
+        <p style="margin:0;font-style:italic">"Worked with them on our site relaunch — professional and fast."</p>
+        <div style="margin-top:12px;font-weight:700">— Client Name</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="container">
+    <h3 class="section-title">Contact</h3>
+    <div style="display:flex;gap:18px;flex-wrap:wrap">
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks — message sent (demo)')">
+        <input type="text" placeholder="Your name" required>
+        <input type="email" placeholder="Your email" required>
+        <textarea placeholder="Message" rows="4" style="grid-column:1/3"></textarea>
+        <button type="submit" class="cta" style="grid-column:1/3;justify-self:start;padding:10px 18px">Send message</button>
+      </form>
+
+      <div style="min-width:260px;padding:16px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
+        <div style="font-weight:700">Let's work together</div>
+        <div class="muted" style="margin-top:8px">Email: <a href="mailto:you@example.com">you@example.com</a></div>
+        <div class="muted" style="margin-top:6px">Location: Kajiado, Kenya</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">© <span id="yr"></span> Your Name — Built with care.</div>
+  </footer>
+</main>
+
+<script>
+  // set year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // active nav on scroll
+  const links = Array.from(document.querySelectorAll('.nav-link'));
+  const sections = links.map(l => document.querySelector(l.getAttribute('href')));
+
+  function onScroll(){
+    const offset = 80; // header height
+    const pos = window.scrollY + offset;
+    let current = sections[0];
+    for(let sec of sections){
+      if(sec && sec.offsetTop <= pos) current = sec;
+    }
+    links.forEach(l => l.classList.remove('active'));
+    const activeLink = links.find(l => l.getAttribute('href') === ('#' + current.id));
+    if(activeLink) activeLink.classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+
+  // simple testimonial rotation (demo)
+  const testTexts = [
+    '"A creative partner who delivers on time." — Alice',
+    '"Professional, great communication and results." — Michael',
+    '"The new site converted more leads in the first month." — Sarah'
+  ];
+  let tIdx=0;
+  setInterval(()=>{
+    const el = document.getElementById('testcard');
+    tIdx = (tIdx+1) % testTexts.length;
+    el.style.opacity=0;
+    setTimeout(()=>{ el.querySelector('p').textContent = testTexts[tIdx]; el.style.opacity=1;},300);
+  },4000);
+</script>
 
 </body>
 </html>

@@ -1,312 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>David Yiaro — Portfolio</title>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David Yiaro - Portfolio</title>
 
 <style>
-/* ROOT COLORS */
-:root {
-  --bg: #0d0d0d;
-  --card: rgba(255,255,255,0.04);
-  --gold: #e3b23c;
-  --gold-soft: #f3d27b;
-  --text: #f5f5f5;
-  --muted: #9b9b9b;
-  --max: 1200px;
-}
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #111;
+        color: #fff;
+        scroll-behavior: smooth;
+    }
 
-/* GENERAL RESET */
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  font-family: Inter, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x:hidden;
-}
+    /* ----- Hero Section ----- */
+    .hero {
+        height: 100vh;
+        background: linear-gradient(135deg, #000, #1a1a1a);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 30px;
+    }
 
-/* LUXURY GLOW */
-.glow {
-  position:absolute;
-  width:420px;
-  height:420px;
-  background: radial-gradient(circle, rgba(227,178,60,0.22), transparent 70%);
-  filter: blur(80px);
-  z-index:-1;
-}
+    .hero h1 {
+        font-size: 60px;
+        font-weight: bold;
+        color: #f1c40f;
+        margin: 0;
+    }
 
-/* CONTAINER */
-.container { max-width: var(--max); margin:auto; padding:0 28px; }
+    .hero p {
+        font-size: 20px;
+        opacity: 0.9;
+        margin: 10px 0 20px;
+    }
 
-/* NAV */
-header {
-  position:fixed; top:0; left:0; right:0;
-  height:70px;
-  display:flex; align-items:center;
-  background:rgba(10,10,10,0.6);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,255,255,0.05);
-  z-index:100;
-}
-nav {
-  display:flex; justify-content:space-between; align-items:center;
-  width:100%;
-}
-.logo {
-  font-family:Poppins; font-weight:700; font-size:20px;
-  letter-spacing:1px;
-  color:var(--gold);
-}
-.menu a {
-  margin-left:26px;
-  text-decoration:none;
-  color:var(--text);
-  font-weight:500;
-  transition:0.3s;
-}
-.menu a:hover, .menu a.active {
-  color:var(--gold);
-}
+    .hero button {
+        padding: 15px 35px;
+        background: #f1c40f;
+        color: #000;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: 0.3s;
+        font-weight: bold;
+    }
 
-/* HERO */
-.hero {
-  padding-top:140px;
-  padding-bottom:100px;
-  position:relative;
-}
-.hero h1 {
-  font-size:46px;
-  font-family:Poppins;
-  font-weight:700;
-  line-height:1.1;
-}
-.hero p {
-  max-width:500px;
-  color:var(--muted);
-  margin-top:18px;
-  font-size:17px;
-}
-.hero .btn {
-  display:inline-block;
-  margin-top:30px;
-  padding:14px 28px;
-  background:var(--gold);
-  color:#000;
-  font-weight:700;
-  text-decoration:none;
-  border-radius:10px;
-  transition:0.3s;
-}
-.hero .btn:hover { background:var(--gold-soft); }
+    .hero button:hover {
+        background: #fff;
+        transform: scale(1.05);
+    }
 
-/* SECTION TITLES */
-section { padding:90px 0; }
-.section-title {
-  font-family:Poppins; font-weight:700;
-  font-size:28px; margin-bottom:10px;
-}
-.section-sub {
-  color:var(--muted);
-  margin-bottom:40px;
-}
+    /* ----- Sections Wrapper ----- */
+    section {
+        padding: 80px 10%;
+    }
 
-/* ABOUT CARD */
-.about-box {
-  background:var(--card);
-  padding:30px;
-  border-radius:14px;
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.08);
-  box-shadow:0 0 20px rgba(227,178,60,0.08);
-}
+    /* ----- About Section ----- */
+    .about {
+        display: flex;
+        gap: 50px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
 
-/* PROJECT GRID */
-.projects {
-  display:grid;
-  gap:28px;
-  grid-template-columns:repeat(auto-fit, minmax(270px,1fr));
-}
-.project-card {
-  background:var(--card);
-  padding:14px;
-  border-radius:16px;
-  transition:0.4s;
-  border:1px solid rgba(255,255,255,0.06);
-  backdrop-filter:blur(8px);
-  box-shadow:0 0 15px rgba(227,178,60,0.05);
-}
-.project-card:hover {
-  transform:translateY(-10px) scale(1.02);
-  box-shadow:0 0 30px rgba(227,178,60,0.12);
-}
-.project-card img {
-  width:100%; height:180px; object-fit:cover;
-  border-radius:12px;
-}
-.project-card h4 { margin-top:14px; font-size:18px; }
-.project-card p { margin-top:6px; color:var(--muted); }
+    .about img {
+        width: 330px;
+        border-radius: 10px;
+        border: 3px solid #f1c40f;
+    }
 
-/* SERVICES */
-.services {
-  display:grid;
-  gap:20px;
-  grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
-}
-.service-card {
-  background:var(--card);
-  padding:22px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.08);
-  transition:0.4s;
-}
-.service-card:hover { border-color:var(--gold); }
+    .about-text h2 {
+        font-size: 35px;
+        color: #f1c40f;
+    }
 
-.service-card h3 {
-  color:var(--gold);
-}
+    .about-text p {
+        font-size: 18px;
+        line-height: 1.7;
+    }
 
-/* CONTACT */
-.contact-box {
-  background:var(--card);
-  padding:20px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.05);
-}
-.contact-box a { color:var(--gold); }
+    /* ----- Skills Section ----- */
+    .skills h2 {
+        color: #f1c40f;
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 35px;
+    }
 
-/* FOOTER */
-footer {
-  text-align:center;
-  padding:40px 0;
-  color:var(--muted);
-  font-size:14px;
-  border-top:1px solid rgba(255,255,255,0.05);
-}
+    .skill-box {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
 
-/* SCROLL REVEAL */
-.reveal { opacity:0; transform:translateY(40px); transition:0.9s ease; }
-.reveal.show { opacity:1; transform:translateY(0px); }
+    .skill-card {
+        background: #1b1b1b;
+        padding: 30px;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid #333;
+        transition: 0.3s;
+    }
+
+    .skill-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0px 0px 15px #f1c40f;
+        border-color: #f1c40f;
+    }
+
+    .skill-card h3 {
+        color: #f1c40f;
+        margin-bottom: 10px;
+    }
+
+    /* ----- Projects ----- */
+    .projects h2 {
+        text-align: center;
+        color: #f1c40f;
+        margin-bottom: 40px;
+        font-size: 35px;
+    }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .project-card {
+        background: #1b1b1b;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #333;
+        transition: 0.3s;
+    }
+
+    .project-card:hover {
+        border-color: #f1c40f;
+        transform: translateY(-8px);
+        box-shadow: 0px 0px 12px #f1c40f;
+    }
+
+    /* ----- Contact ----- */
+    .contact h2 {
+        color: #f1c40f;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 35px;
+    }
+
+    .contact-details {
+        text-align: center;
+        font-size: 18px;
+        line-height: 2;
+        margin-bottom: 30px;
+    }
+
+    .contact-form {
+        max-width: 450px;
+        margin: auto;
+    }
+
+    .contact-form input, .contact-form textarea {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 6px;
+        background: #222;
+        color: white;
+    }
+
+    .contact-form button {
+        width: 100%;
+        padding: 15px;
+        background: #f1c40f;
+        color: black;
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .contact-form button:hover {
+        transform: scale(1.05);
+        background: white;
+    }
+
+    /* ----- Footer ----- */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #000;
+        color: #777;
+        margin-top: 40px;
+    }
 </style>
 </head>
 
 <body>
 
-<!-- GOLD GLOW -->
-<div class="glow" style="top:-120px; right:-120px;"></div>
-<div class="glow" style="bottom:-200px; left:-150px;"></div>
-
-<header>
-  <div class="container">
-    <nav>
-      <div class="logo">DAVID YIARO</div>
-      <div class="menu">
-        <a href="#home" class="active">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-  </div>
-</header>
-
 <!-- HERO -->
-<section id="home" class="hero container reveal">
-  <h1>Crafting Elegant & Modern <br> Digital Experiences</h1>
-  <p>I create beautifully designed websites, WordPress solutions, and digital identities that blend creativity with clean functionality.</p>
-  <a href="#projects" class="btn">Explore My Work</a>
-</section>
+<div class="hero">
+    <h1>David Yiaro</h1>
+    <p>Digital Skills Trainer • Web Designer • Creative Developer</p>
+    <button onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+        View My Work
+    </button>
+</div>
 
 <!-- ABOUT -->
-<section id="about" class="container reveal">
-  <h2 class="section-title">About Me</h2>
-  <p class="section-sub">A blend of creativity, design, and practical web development.</p>
-  <div class="about-box">
-    I am a digital skills trainer and web designer who builds elegant modern websites using WordPress, HTML, CSS, and clean UI principles.
-    My focus is simplicity, speed, and beautiful user experiences. I love empowering learners and creating meaningful digital products.
-  </div>
+<section class="about">
+    <img src="https://via.placeholder.com/300x350" alt="Profile Photo">
+
+    <div class="about-text">
+        <h2>About Me</h2>
+        <p>
+            I am a passionate digital skills trainer and web designer, helping young people embrace technology 
+            and opportunities through practical and creative learning. I specialize in WordPress, graphics, 
+            digital marketing, and designing elegant, modern websites.
+        </p>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+    <h2>My Skills</h2>
+
+    <div class="skill-box">
+        <div class="skill-card">
+            <h3>Web Development</h3>
+            <p>Professional WordPress design and development.</p>
+        </div>
+
+        <div class="skill-card">
+            <h3>Graphic Design</h3>
+            <p>Creative posters, banners, logos, and branding.</p>
+        </div>
+
+        <div class="skill-card">
+            <h3>Digital Marketing</h3>
+            <p>SEO, online ads, and professional content strategy.</p>
+        </div>
+
+        <div class="skill-card">
+            <h3>Social Media Management</h3>
+            <p>Managing accounts to grow your online presence.</p>
+        </div>
+    </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="container reveal">
-  <h2 class="section-title">Projects</h2>
-  <p class="section-sub">A selection of elegant digital creations.</p>
+<section class="projects" id="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
 
-  <div class="projects">
-    <div class="project-card">
-      <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=60" />
-      <h4>E-Commerce Website</h4>
-      <p>Modern WordPress shop with elegant layout and smooth UI.</p>
+        <div class="project-card">
+            <h3>Portfolio Website</h3>
+            <p>A modern and elegant portfolio built with HTML & CSS.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Business Website</h3>
+            <p>A clean WordPress website for a small business.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Graphic Design Work</h3>
+            <p>Branding, posters, and social media designs.</p>
+        </div>
+
     </div>
-
-    <div class="project-card">
-      <img src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a3?q=60" />
-      <h4>Branding & Visual Identity</h4>
-      <p>Clean brand kit for a tech startup.</p>
-    </div>
-
-    <div class="project-card">
-      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=60" />
-      <h4>Portfolio Design</h4>
-      <p>Fully responsive portfolio with animations & dark luxury design.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services" class="container reveal">
-  <h2 class="section-title">Services</h2>
-
-  <div class="services">
-    <div class="service-card">
-      <h3>Web Development</h3>
-      <p>High-quality WordPress design with modern UI/UX.</p>
-    </div>
-
-    <div class="service-card">
-      <h3>Graphics Design</h3>
-      <p>Logos, banners, flyers, brand identity kits.</p>
-    </div>
-
-    <div class="service-card">
-      <h3>Digital Marketing</h3>
-      <p>SEO, social media campaigns, conversions & analytics.</p>
-    </div>
-  </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="container reveal">
-  <h2 class="section-title">Contact</h2>
-  <div class="contact-box">
-    <p>Email: <a href="mailto:david@example.com">david@example.com</a></p>
-    <p>Location: Kajiado, Kenya</p>
-  </div>
+<section class="contact" id="contact">
+    <h2>Contact Me</h2>
+
+    <div class="contact-details">
+        📧 Email: **davidyiaro@gmail.com** <br>
+        📞 Phone: **0708140983**
+    </div>
+
+    <div class="contact-form">
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea rows="5" placeholder="Your Message"></textarea>
+        <button>Send Message</button>
+    </div>
 </section>
 
 <footer>
-  © <script>document.write(new Date().getFullYear());</script> David Yiaro — All Rights Reserved.
+    © 2025 David Yiaro — All Rights Reserved
 </footer>
-
-<script>
-// Scroll reveal
-const elements = document.querySelectorAll('.reveal');
-function revealOnScroll(){
-  elements.forEach(el=>{
-    const rect = el.getBoundingClientRect().top;
-    if(rect < window.innerHeight - 120){
-      el.classList.add('show');
-    }
-  });
-}
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll();
-</script>
 
 </body>
 </html>

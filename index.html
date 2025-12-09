@@ -1,293 +1,311 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Your Name — Portfolio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David Yiaro — Portfolio</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg: #FCFBFA;
-      --dark: #0B2545;
-      --muted: #6B7280;
-      --accent: #E3B23C;
-      --surface: #ffffff;
-      --glass: rgba(11,37,69,0.06);
-      --maxw: 1100px;
-      --nav-h: 72px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:var(--bg);
-      color:var(--dark);
-      -webkit-font-smoothing:antialiased;
-    }
+<style>
+/* ROOT COLORS */
+:root {
+  --bg: #0d0d0d;
+  --card: rgba(255,255,255,0.04);
+  --gold: #e3b23c;
+  --gold-soft: #f3d27b;
+  --text: #f5f5f5;
+  --muted: #9b9b9b;
+  --max: 1200px;
+}
 
-    /* Container */
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px;}
+/* GENERAL RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: Inter, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x:hidden;
+}
 
-    /* NAV */
-    header{
-      position:fixed;left:0;right:0;top:0;height:var(--nav-h);
-      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
-      backdrop-filter: blur(6px);
-      display:flex;align-items:center;box-shadow:0 6px 18px rgba(3,10,30,0.06);z-index:60;
-    }
-    nav{width:100%;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{
-      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--dark),#152f5a);
-      display:flex;align-items:center;justify-content:center;color:var(--bg);font-weight:700;font-family:Poppins;font-size:18px;
-    }
-    .brand h1{font-size:16px;margin:0;font-weight:600}
-    .menu{display:flex;gap:18px;align-items:center}
-    .menu a{color:var(--dark);text-decoration:none;font-weight:600;padding:8px 6px;border-radius:6px}
-    .menu a.active, .menu a:hover{color:var(--accent)}
-    .cta{background:var(--accent);padding:10px 14px;border-radius:10px;color:var(--dark);font-weight:700;text-decoration:none}
+/* LUXURY GLOW */
+.glow {
+  position:absolute;
+  width:420px;
+  height:420px;
+  background: radial-gradient(circle, rgba(227,178,60,0.22), transparent 70%);
+  filter: blur(80px);
+  z-index:-1;
+}
 
-    /* Hero */
-    .hero{padding-top:110px;padding-bottom:80px}
-    .hero-inner{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
-    .eyebrow{color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:1px;font-size:12px}
-    .hero h2{font-family:Poppins;font-size:38px;margin:12px 0 8px;line-height:1.02}
-    .hero p{color:var(--muted);margin:0 0 18px;max-width:54ch}
-    .hero .actions{display:flex;gap:12px;align-items:center}
-    .card-preview{background:var(--surface);border-radius:16px;padding:18px;box-shadow:0 10px 30px var(--glass)}
+/* CONTAINER */
+.container { max-width: var(--max); margin:auto; padding:0 28px; }
 
-    /* Sections */
-    section{padding:68px 0}
-    h3.section-title{font-family:Poppins;margin:0 0 18px;font-size:22px}
-    .about-grid{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+/* NAV */
+header {
+  position:fixed; top:0; left:0; right:0;
+  height:70px;
+  display:flex; align-items:center;
+  background:rgba(10,10,10,0.6);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  z-index:100;
+}
+nav {
+  display:flex; justify-content:space-between; align-items:center;
+  width:100%;
+}
+.logo {
+  font-family:Poppins; font-weight:700; font-size:20px;
+  letter-spacing:1px;
+  color:var(--gold);
+}
+.menu a {
+  margin-left:26px;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:500;
+  transition:0.3s;
+}
+.menu a:hover, .menu a.active {
+  color:var(--gold);
+}
 
-    /* Skills */
-    .skill{margin-bottom:12px}
-    .skill .label{display:flex;justify-content:space-between;font-weight:600;color:var(--muted);font-size:13px}
-    .bar{height:10px;background:#e9e9ef;border-radius:999px;margin-top:8px;overflow:hidden}
-    .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#f0cb6b);border-radius:999px}
+/* HERO */
+.hero {
+  padding-top:140px;
+  padding-bottom:100px;
+  position:relative;
+}
+.hero h1 {
+  font-size:46px;
+  font-family:Poppins;
+  font-weight:700;
+  line-height:1.1;
+}
+.hero p {
+  max-width:500px;
+  color:var(--muted);
+  margin-top:18px;
+  font-size:17px;
+}
+.hero .btn {
+  display:inline-block;
+  margin-top:30px;
+  padding:14px 28px;
+  background:var(--gold);
+  color:#000;
+  font-weight:700;
+  text-decoration:none;
+  border-radius:10px;
+  transition:0.3s;
+}
+.hero .btn:hover { background:var(--gold-soft); }
 
-    /* Projects grid */
-    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-    .project{
-      background:var(--surface);padding:16px;border-radius:12px;box-shadow:0 8px 24px var(--glass);transition:transform .35s ease, box-shadow .35s ease;
-    }
-    .project:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(11,37,69,0.12)}
-    .project img{width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:12px}
-    .project h4{margin:6px 0 4px;font-size:16px}
-    .project p{margin:0;color:var(--muted);font-size:14px}
+/* SECTION TITLES */
+section { padding:90px 0; }
+.section-title {
+  font-family:Poppins; font-weight:700;
+  font-size:28px; margin-bottom:10px;
+}
+.section-sub {
+  color:var(--muted);
+  margin-bottom:40px;
+}
 
-    /* Testimonials */
-    .testimonials{display:flex;gap:12px;align-items:center}
-    .test-card{padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff, #fbfbfc);box-shadow:0 8px 24px var(--glass);max-width:520px}
+/* ABOUT CARD */
+.about-box {
+  background:var(--card);
+  padding:30px;
+  border-radius:14px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 0 20px rgba(227,178,60,0.08);
+}
 
-    /* Contact */
-    .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    input, textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #e6e7ee;font-size:14px}
-    .footer{padding:28px 0;color:var(--muted);text-align:center;font-size:14px}
+/* PROJECT GRID */
+.projects {
+  display:grid;
+  gap:28px;
+  grid-template-columns:repeat(auto-fit, minmax(270px,1fr));
+}
+.project-card {
+  background:var(--card);
+  padding:14px;
+  border-radius:16px;
+  transition:0.4s;
+  border:1px solid rgba(255,255,255,0.06);
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 15px rgba(227,178,60,0.05);
+}
+.project-card:hover {
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 0 30px rgba(227,178,60,0.12);
+}
+.project-card img {
+  width:100%; height:180px; object-fit:cover;
+  border-radius:12px;
+}
+.project-card h4 { margin-top:14px; font-size:18px; }
+.project-card p { margin-top:6px; color:var(--muted); }
 
-    /* Responsive */
-    @media (max-width:920px){
-      .hero-inner{grid-template-columns:1fr}
-      .about-grid{grid-template-columns:1fr}
-      .contact-form{grid-template-columns:1fr}
-      .menu{display:none}
-    }
-    /* small helper */
-    .muted{color:var(--muted)}
-  </style>
+/* SERVICES */
+.services {
+  display:grid;
+  gap:20px;
+  grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+}
+.service-card {
+  background:var(--card);
+  padding:22px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.4s;
+}
+.service-card:hover { border-color:var(--gold); }
+
+.service-card h3 {
+  color:var(--gold);
+}
+
+/* CONTACT */
+.contact-box {
+  background:var(--card);
+  padding:20px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+.contact-box a { color:var(--gold); }
+
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:40px 0;
+  color:var(--muted);
+  font-size:14px;
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* SCROLL REVEAL */
+.reveal { opacity:0; transform:translateY(40px); transition:0.9s ease; }
+.reveal.show { opacity:1; transform:translateY(0px); }
+</style>
 </head>
+
 <body>
+
+<!-- GOLD GLOW -->
+<div class="glow" style="top:-120px; right:-120px;"></div>
+<div class="glow" style="bottom:-200px; left:-150px;"></div>
 
 <header>
   <div class="container">
     <nav>
-      <div class="brand">
-        <div class="logo">YC</div>
-        <div><h1>YOUR NAME</h1><div class="muted" style="font-size:12px">Full-Stack & Designer</div></div>
-      </div>
-
-      <div class="menu" id="menu">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#contact" class="nav-link">Contact</a>
-        <a class="cta" href="#contact">Hire me</a>
+      <div class="logo">DAVID YIARO</div>
+      <div class="menu">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
       </div>
     </nav>
   </div>
 </header>
 
-<main>
-  <section id="home" class="hero">
-    <div class="container hero-inner">
-      <div>
-        <div class="eyebrow">Designer & Developer</div>
-        <h2>Modern, elegant websites & digital products that convert.</h2>
-        <p>I build responsive WordPress sites, clean UI/UX, and visual identities that help businesses grow online.</p>
-        <div class="actions">
-          <a class="cta" href="#projects">View Projects</a>
-          <a href="#contact" style="padding:10px 14px;border-radius:10px;background:transparent;border:2px solid var(--dark);text-decoration:none;font-weight:700">Contact</a>
-        </div>
-      </div>
+<!-- HERO -->
+<section id="home" class="hero container reveal">
+  <h1>Crafting Elegant & Modern <br> Digital Experiences</h1>
+  <p>I create beautifully designed websites, WordPress solutions, and digital identities that blend creativity with clean functionality.</p>
+  <a href="#projects" class="btn">Explore My Work</a>
+</section>
 
-      <div class="card-preview">
-        <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1200&auto=format&fit=crop" alt="preview" style="width:100%;border-radius:8px;margin-bottom:12px">
-        <div style="font-weight:700">Featured Project</div>
-        <div class="muted" style="font-size:13px">E-commerce — WordPress & WooCommerce</div>
-      </div>
+<!-- ABOUT -->
+<section id="about" class="container reveal">
+  <h2 class="section-title">About Me</h2>
+  <p class="section-sub">A blend of creativity, design, and practical web development.</p>
+  <div class="about-box">
+    I am a digital skills trainer and web designer who builds elegant modern websites using WordPress, HTML, CSS, and clean UI principles.
+    My focus is simplicity, speed, and beautiful user experiences. I love empowering learners and creating meaningful digital products.
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="container reveal">
+  <h2 class="section-title">Projects</h2>
+  <p class="section-sub">A selection of elegant digital creations.</p>
+
+  <div class="projects">
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=60" />
+      <h4>E-Commerce Website</h4>
+      <p>Modern WordPress shop with elegant layout and smooth UI.</p>
     </div>
-  </section>
 
-  <section id="about" class="container">
-    <h3 class="section-title">About & Skills</h3>
-    <div class="about-grid">
-      <div>
-        <p class="muted">I design and develop websites focused on performance, accessibility, and beautiful UI. I enjoy turning complex requirements into simple, delightful user experiences.</p>
-
-        <div style="margin-top:18px">
-          <div class="skill">
-            <div class="label"><span>WordPress / PHP</span><span>90%</span></div>
-            <div class="bar"><i style="width:90%"></i></div>
-          </div>
-          <div class="skill">
-            <div class="label"><span>HTML / CSS / JS</span><span>95%</span></div>
-            <div class="bar"><i style="width:95%"></i></div>
-          </div>
-          <div class="skill">
-            <div class="label"><span>UI / Graphic Design</span><span>85%</span></div>
-            <div class="bar"><i style="width:85%"></i></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="padding:14px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
-          <div style="font-weight:700">Location</div>
-          <div class="muted" style="font-size:13px">Kajiado, Kenya</div>
-        </div>
-        <div style="padding:14px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
-          <div style="font-weight:700">Availability</div>
-          <div class="muted" style="font-size:13px">Open for freelance & projects</div>
-        </div>
-      </div>
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a3?q=60" />
+      <h4>Branding & Visual Identity</h4>
+      <p>Clean brand kit for a tech startup.</p>
     </div>
-  </section>
 
-  <section id="projects" class="container">
-    <h3 class="section-title">Projects</h3>
-    <div class="projects-grid">
-      <article class="project">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="">
-        <h4>Project One</h4>
-        <p class="muted">WordPress e-commerce site with custom theme and performance optimizations.</p>
-      </article>
-
-      <article class="project">
-        <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=1200&auto=format&fit=crop" alt="">
-        <h4>Project Two</h4>
-        <p class="muted">Branding, UI kit and landing page for a fintech startup.</p>
-      </article>
-
-      <article class="project">
-        <img src="https://images.unsplash.com/photo-1526378723463-34f4dd48e7b6?q=80&w=1200&auto=format&fit=crop" alt="">
-        <h4>Project Three</h4>
-        <p class="muted">Portfolio site built with modern HTML/CSS and small JS animations.</p>
-      </article>
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=60" />
+      <h4>Portfolio Design</h4>
+      <p>Fully responsive portfolio with animations & dark luxury design.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="services" class="container">
-    <h3 class="section-title">Services</h3>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
-      <div style="padding:18px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
-        <div style="font-weight:700">WordPress Development</div>
-        <p class="muted" style="margin-top:8px">Custom themes, plugin setup, optimization & maintenance.</p>
-      </div>
-      <div style="padding:18px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
-        <div style="font-weight:700">Graphic Design</div>
-        <p class="muted" style="margin-top:8px">Logos, social assets, banners, and visual branding.</p>
-      </div>
-      <div style="padding:18px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
-        <div style="font-weight:700">Digital Marketing</div>
-        <p class="muted" style="margin-top:8px">SEO, social media strategies, and campaigns that convert.</p>
-      </div>
+<!-- SERVICES -->
+<section id="services" class="container reveal">
+  <h2 class="section-title">Services</h2>
+
+  <div class="services">
+    <div class="service-card">
+      <h3>Web Development</h3>
+      <p>High-quality WordPress design with modern UI/UX.</p>
     </div>
-  </section>
 
-  <section id="testimonials" class="container">
-    <h3 class="section-title">Testimonials</h3>
-    <div class="testimonials">
-      <div class="test-card" id="testcard">
-        <p style="margin:0;font-style:italic">"Worked with them on our site relaunch — professional and fast."</p>
-        <div style="margin-top:12px;font-weight:700">— Client Name</div>
-      </div>
+    <div class="service-card">
+      <h3>Graphics Design</h3>
+      <p>Logos, banners, flyers, brand identity kits.</p>
     </div>
-  </section>
 
-  <section id="contact" class="container">
-    <h3 class="section-title">Contact</h3>
-    <div style="display:flex;gap:18px;flex-wrap:wrap">
-      <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks — message sent (demo)')">
-        <input type="text" placeholder="Your name" required>
-        <input type="email" placeholder="Your email" required>
-        <textarea placeholder="Message" rows="4" style="grid-column:1/3"></textarea>
-        <button type="submit" class="cta" style="grid-column:1/3;justify-self:start;padding:10px 18px">Send message</button>
-      </form>
-
-      <div style="min-width:260px;padding:16px;border-radius:12px;background:var(--surface);box-shadow:0 8px 24px var(--glass)">
-        <div style="font-weight:700">Let's work together</div>
-        <div class="muted" style="margin-top:8px">Email: <a href="mailto:you@example.com">you@example.com</a></div>
-        <div class="muted" style="margin-top:6px">Location: Kajiado, Kenya</div>
-      </div>
+    <div class="service-card">
+      <h3>Digital Marketing</h3>
+      <p>SEO, social media campaigns, conversions & analytics.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="footer">
-    <div class="container">© <span id="yr"></span> Your Name — Built with care.</div>
-  </footer>
-</main>
+<!-- CONTACT -->
+<section id="contact" class="container reveal">
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-box">
+    <p>Email: <a href="mailto:david@example.com">david@example.com</a></p>
+    <p>Location: Kajiado, Kenya</p>
+  </div>
+</section>
+
+<footer>
+  © <script>document.write(new Date().getFullYear());</script> David Yiaro — All Rights Reserved.
+</footer>
 
 <script>
-  // set year
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
-  // active nav on scroll
-  const links = Array.from(document.querySelectorAll('.nav-link'));
-  const sections = links.map(l => document.querySelector(l.getAttribute('href')));
-
-  function onScroll(){
-    const offset = 80; // header height
-    const pos = window.scrollY + offset;
-    let current = sections[0];
-    for(let sec of sections){
-      if(sec && sec.offsetTop <= pos) current = sec;
+// Scroll reveal
+const elements = document.querySelectorAll('.reveal');
+function revealOnScroll(){
+  elements.forEach(el=>{
+    const rect = el.getBoundingClientRect().top;
+    if(rect < window.innerHeight - 120){
+      el.classList.add('show');
     }
-    links.forEach(l => l.classList.remove('active'));
-    const activeLink = links.find(l => l.getAttribute('href') === ('#' + current.id));
-    if(activeLink) activeLink.classList.add('active');
-  }
-  window.addEventListener('scroll', onScroll);
-  onScroll();
-
-  // simple testimonial rotation (demo)
-  const testTexts = [
-    '"A creative partner who delivers on time." — Alice',
-    '"Professional, great communication and results." — Michael',
-    '"The new site converted more leads in the first month." — Sarah'
-  ];
-  let tIdx=0;
-  setInterval(()=>{
-    const el = document.getElementById('testcard');
-    tIdx = (tIdx+1) % testTexts.length;
-    el.style.opacity=0;
-    setTimeout(()=>{ el.querySelector('p').textContent = testTexts[tIdx]; el.style.opacity=1;},300);
-  },4000);
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
 </script>
 
 </body>

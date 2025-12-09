@@ -1,25 +1,204 @@
-<?php
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $name = strip_tags(trim($_POST["name"]));
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $message = trim($_POST["message"]);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David Yiaro - Portfolio</title>
 
-    if(empty($name) || empty($message) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
-        echo "Please fill all fields correctly.";
-        exit;
-    }
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- AOS Animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
-    $to = "davidyiaro@gmail.com";
-    $subject = "New Message from Portfolio Website";
-    $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
-    $headers = "From: $email";
+<style>
+body { margin:0; font-family:"Poppins",sans-serif; background:#111; color:#fff; scroll-behavior:smooth; }
 
-    if(mail($to, $subject, $body, $headers)){
-        echo "<script>alert('Message sent successfully!'); window.location='index.html';</script>";
-    } else {
-        echo "<script>alert('Oops! Something went wrong.'); window.location='index.html';</script>";
-    }
-} else {
-    header("Location: index.html");
+/* HERO */
+.hero {
+    height:70vh;
+    background:#222 url('https://via.placeholder.com/1600x800') center/cover no-repeat;
+    display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+    padding:0 30px;
 }
-?>
+.hero h1 { font-size:60px; font-weight:bold; color:#f1c40f; margin:0; }
+.hero p { font-size:20px; opacity:0.9; margin:10px 0 30px; }
+.hero button { padding:15px 35px; background:#f1c40f; color:#000; border:none; border-radius:6px; margin:5px; font-weight:bold; cursor:pointer; transition:0.3s; }
+.hero button:hover { background:#fff; transform:scale(1.05); }
+
+/* Sections */
+section { padding:60px 10%; }
+h2 { text-align:center; color:#f1c40f; margin-bottom:40px; font-size:35px; }
+
+/* STATS */
+.stats-grid { display:flex; justify-content:space-around; gap:20px; flex-wrap:wrap; text-align:center; margin-bottom:60px; }
+.stat-card { background:#1b1b1b; padding:40px; border-radius:10px; box-shadow:0 0 15px #f1c40f; width:200px; transition:0.3s; }
+.stat-card:hover { transform:translateY(-5px); box-shadow:0 0 25px #f1c40f; }
+.stat-card h3 { font-size:40px; color:#f1c40f; margin-bottom:10px; }
+.stat-card p { font-size:18px; }
+
+/* ABOUT */
+.about { display:flex; gap:50px; align-items:center; flex-wrap:wrap; }
+.about img { width:300px; border-radius:50%; border:3px solid #f1c40f; box-shadow:0 0 20px #f1c40f; }
+.about-text p { font-size:18px; line-height:1.7; }
+.about-text a { color:#f1c40f; text-decoration:none; }
+
+/* SKILLS */
+.skill-box { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; }
+.skill-card { background:#1b1b1b; padding:20px; border-radius:10px; border:1px solid #333; box-shadow:0 0 10px #f1c40f; }
+.skill-card h3 { color:#f1c40f; margin-bottom:10px; }
+.skill-bar { width:100%; background:#333; height:12px; border-radius:6px; margin-top:10px; }
+.skill-level { height:100%; background:#f1c40f; border-radius:6px; text-align:right; padding-right:8px; color:black; font-weight:bold; line-height:12px; font-size:12px; }
+
+/* SERVICES */
+.service-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:30px; }
+.service-card { background:#1b1b1b; padding:25px; border-radius:10px; text-align:center; border:1px solid #333; box-shadow:0 0 10px #f1c40f; }
+.service-card i { font-size:40px; color:#f1c40f; margin-bottom:15px; }
+.service-card:hover { transform:translateY(-5px); box-shadow:0 0 20px #f1c40f; border-color:#f1c40f; }
+
+/* ACHIEVEMENTS */
+.achievement-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; }
+.achievement-card { background:#1b1b1b; padding:25px; border-radius:10px; text-align:center; border:1px solid #333; box-shadow:0 0 10px #f1c40f; }
+.achievement-card i { font-size:40px; color:#f1c40f; margin-bottom:15px; }
+.achievement-card:hover { transform:translateY(-5px); box-shadow:0 0 20px #f1c40f; border-color:#f1c40f; }
+
+/* PROJECTS */
+.project-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:30px; }
+.project-card { background:#1b1b1b; padding:20px; border-radius:10px; border:1px solid #333; text-align:center; box-shadow:0 0 10px #f1c40f; }
+.project-card img { width:100%; border-radius:10px; margin-bottom:15px; }
+.project-card:hover { border-color:#f1c40f; transform: translateY(-8px); box-shadow:0 0 20px #f1c40f; }
+
+/* TESTIMONIALS */
+.testimonials-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; }
+.testimonial-card { background:#1b1b1b; padding:25px; border-radius:10px; border:1px solid #333; box-shadow:0 0 10px #f1c40f; }
+.testimonial-card img { width:60px; border-radius:50%; margin-bottom:10px; }
+.testimonial-card:hover { transform:translateY(-5px); box-shadow:0 0 20px #f1c40f; border-color:#f1c40f; }
+
+/* CONTACT */
+.contact-form { max-width:450px; margin:auto; }
+.contact-form input, .contact-form textarea { width:100%; padding:14px; font-size:16px; margin-bottom:15px; border:none; border-radius:6px; background:#222; color:white; }
+.contact-form button { width:100%; padding:15px; background:#f1c40f; color:black; border:none; border-radius:6px; font-size:18px; cursor:pointer; transition:0.3s; }
+.contact-form button:hover { transform:scale(1.05); background:white; }
+.contact-details { text-align:center; font-size:18px; line-height:2; margin-bottom:30px; }
+.contact-details i { color:#f1c40f; margin-right:8px; }
+
+/* WhatsApp Floating Button */
+.whatsapp-float { position:fixed; bottom:20px; right:20px; background-color:#25D366; color:white; border-radius:50%; padding:15px; font-size:25px; z-index:100; box-shadow:0 0 15px #25D366; transition: transform 0.3s; }
+.whatsapp-float:hover { transform: scale(1.1); }
+
+/* Footer */
+footer { text-align:center; padding:20px; background:#000; color:#777; margin-top:40px; }
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero" data-aos="fade-down">
+    <h1>David Yiaro</h1>
+    <p>Digital Skills Trainer • Web Designer • Creative Developer</p>
+    <div>
+        <button onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View My Work</button>
+        <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Me</button>
+    </div>
+</div>
+
+<!-- STATS -->
+<section class="stats" data-aos="fade-up">
+    <div class="stats-grid">
+        <div class="stat-card"><h3>200+</h3><p>Students Trained</p></div>
+        <div class="stat-card"><h3>50+</h3><p>Projects Completed</p></div>
+        <div class="stat-card"><h3>10+</h3><p>Awards Won</p></div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" data-aos="fade-right">
+    <img src="https://via.placeholder.com/300" alt="Profile Photo">
+    <div class="about-text">
+        <h2>About Me</h2>
+        <p>I am a passionate digital skills trainer and web designer, helping young people embrace technology and opportunities through practical learning.</p>
+        <p><i class="fa-brands fa-github"></i> GitHub: <a href="#">yourusername</a><br>
+           <i class="fa-brands fa-linkedin"></i> LinkedIn: <a href="#">yourprofile</a></p>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" data-aos="fade-up">
+    <h2>My Skills</h2>
+    <div class="skill-box">
+        <div class="skill-card"><h3>Web Development</h3><div class="skill-bar"><div class="skill-level" style="width:90%;">90%</div></div></div>
+        <div class="skill-card"><h3>Graphic Design</h3><div class="skill-bar"><div class="skill-level" style="width:85%;">85%</div></div></div>
+        <div class="skill-card"><h3>Digital Marketing</h3><div class="skill-bar"><div class="skill-level" style="width:80%;">80%</div></div></div>
+        <div class="skill-card"><h3>Social Media</h3><div class="skill-bar"><div class="skill-level" style="width:75%;">75%</div></div></div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" data-aos="fade-up">
+    <h2>My Services</h2>
+    <div class="service-grid">
+        <div class="service-card"><i class="fa-solid fa-code"></i><h3>Web Development</h3><p>Custom WordPress & HTML/CSS websites.</p></div>
+        <div class="service-card"><i class="fa-solid fa-paintbrush"></i><h3>Graphic Design</h3><p>Posters, branding, and social media visuals.</p></div>
+        <div class="service-card"><i class="fa-solid fa-bullhorn"></i><h3>Digital Marketing</h3><p>SEO, content strategy, social media campaigns.</p></div>
+    </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements" data-aos="fade-up">
+    <h2>My Achievements</h2>
+    <div class="achievement-grid">
+        <div class="achievement-card"><i class="fa-solid fa-award"></i><h3>Best Web Designer 2024</h3></div>
+        <div class="achievement-card"><i class="fa-solid fa-certificate"></i><h3>Certified Digital Marketer</h3></div>
+        <div class="achievement-card"><i class="fa-solid fa-trophy"></i><h3>Top Trainer</h3></div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" data-aos="fade-up" id="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
+        <div class="project-card"><img src="https://via.placeholder.com/400x250" alt="Project 1"><h3>Portfolio Website</h3></div>
+        <div class="project-card"><img src="https://via.placeholder.com/400x250" alt="Project 2"><h3>Business Website</h3></div>
+        <div class="project-card"><img src="https://via.placeholder.com/400x250" alt="Project 3"><h3>Graphic Design</h3></div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" data-aos="fade-up">
+    <h2>Testimonials</h2>
+    <div class="testimonials-grid">
+        <div class="testimonial-card"><img src="https://via.placeholder.com/60" alt="Student 1"><p>"David's training changed my life!"</p><strong>- Jane</strong></div>
+        <div class="testimonial-card"><img src="https://via.placeholder.com/60" alt="Student 2"><p>"Learned WordPress and got my first client!"</p><strong>- Juma</strong></div>
+        <div class="testimonial-card"><img src="https://via.placeholder.com/60" alt="Student 3"><p>"Amazing mentorship and guidance."</p><strong>- Pendo</strong></div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" data-aos="fade-up" id="contact">
+    <h2>Contact Me</h2>
+    <div class="contact-details">
+        <i class="fa-solid fa-envelope"></i> Email: <strong>davidyiaro@gmail.com</strong> <br>
+        <i class="fa-solid fa-phone"></i> Phone: <strong>0708140983</strong>
+    </div>
+    <div class="contact-form">
+        <form action="#" method="post">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<!-- WhatsApp Button -->
+<a href="https://wa.me/254708140983" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<footer>© 2025 David Yiaro — All Rights Reserved</footer>
+
+<script>
+AOS.init({ duration:1000, once:true });
+</script>
+
+</body>
+</html>

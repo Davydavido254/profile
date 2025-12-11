@@ -1,402 +1,616 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>David Yiaro — Digital Skills Trainer</title>
+<meta name="description" content="David Yiaro — Digital Skills Trainer, Graphic Designer, Web & WordPress Developer. Ultra-premium portfolio." />
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+/* =========================
+   LEVEL 5 — HYBRID ELEGANCE
+   Single-file portfolio
+   ========================= */
 
-/* RESET */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins', sans-serif;
+/* --- Root variables --- */
+:root{
+  --bg-1:#07101a;
+  --bg-2:#081026;
+  --muted:rgba(255,255,255,0.78);
+  --glass: rgba(255,255,255,0.03);
+  --accent-1:#00e5ff;
+  --accent-2:#74ff9c;
+  --neon: rgba(116,255,156,0.12);
+  --glass-border: rgba(255,255,255,0.06);
+  --card-shadow: 0 18px 60px rgba(2,10,20,0.6);
+  --radius:16px;
+  --max-w:1200px;
+  --trans: 350ms cubic-bezier(.2,.9,.25,1);
 }
 
+/* --- Reset --- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
 body{
-  background:#0b0e14;
-  color:#fff;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:
+    radial-gradient(800px 500px at 8% 8%, rgba(0,229,255,0.02), transparent 6%),
+    radial-gradient(700px 450px at 92% 88%, rgba(116,255,156,0.02), transparent 6%),
+    linear-gradient(180deg,var(--bg-1), var(--bg-2));
+  color: #eef6f9;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
+  line-height:1.45;
 }
 
-/* FLOATING SHAPES */
-.shape{
-  position:absolute;
-  width:200px;
-  height:200px;
-  background:radial-gradient(circle, rgba(0,255,200,0.6), transparent);
-  border-radius:50%;
-  filter:blur(40px);
-  animation:float 10s infinite ease-in-out;
-}
-.shape:nth-child(1){ top:10%; left:5%; }
-.shape:nth-child(2){ bottom:10%; right:10%; width:250px; height:250px; }
-
-@keyframes float{
-  0%{ transform:translateY(0) scale(1);}
-  50%{ transform:translateY(-40px) scale(1.1);}
-  100%{ transform:translateY(0) scale(1);}
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce){
+  :root{ --trans: 0ms; }
+  *{ animation-duration: 0ms !important; transition-duration: 0ms !important; }
 }
 
-/* HERO SECTION */
+/* --- Container --- */
+.container{ max-width:var(--max-w); margin:0 auto; padding:0 20px; }
+
+/* --- Particle canvas --- */
+#particles{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.9; }
+
+/* --- Parallax layers --- */
+.parallax{
+  position:fixed; inset:0; z-index:1; pointer-events:none; mix-blend-mode:screen;
+}
+.parallax .layer{ position:absolute; border-radius:50%; filter:blur(36px); opacity:0.55; }
+
+/* --- Header / Nav --- */
+.header{
+  position:sticky; top:20px; z-index:30; display:flex; justify-content:center;
+  padding:10px 0;
+}
+.header-inner{
+  width:100%; max-width:var(--max-w); display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:10px 14px; border-radius:14px; backdrop-filter: blur(8px) saturate(120%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid var(--glass-border); box-shadow:0 8px 30px rgba(0,0,0,0.5);
+}
+.brand{ display:flex; align-items:center; gap:12px; }
+.brand .logo{
+  width:44px; height:44px; border-radius:10px; display:grid; place-items:center;
+  background: linear-gradient(135deg,var(--accent-1),var(--accent-2));
+  color:#002; font-weight:800; box-shadow: 0 8px 28px rgba(0,229,255,0.06);
+}
+.brand span{ font-weight:700; color:var(--muted); letter-spacing:0.2px; }
+
+/* nav links */
+.navlinks{ display:flex; gap:8px; align-items:center; }
+.navlinks a{
+  color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:10px; font-weight:600; font-size:0.95rem;
+  transition: all 180ms ease;
+}
+.navlinks a:hover{ transform:translateY(-3px); color:#fff; background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent); }
+.navlinks a.active{ color:white; box-shadow:0 0 30px rgba(0,229,255,0.06); }
+
+/* CTA */
+.cta{ padding:8px 12px; border-radius:12px; background: linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#001; font-weight:800; text-decoration:none; }
+
+/* --- Hero --- */
 .hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-  position:relative;
-  overflow:hidden;
+  min-height:86vh; display:flex; align-items:center; position:relative; z-index:3; margin-top:10px;
+}
+.hero-grid{ display:grid; grid-template-columns:1fr 420px; gap:36px; align-items:center; width:100%; max-width:var(--max-w); margin:0 auto; padding:20px; }
+.kicker{ display:inline-block; padding:8px 14px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent); color:var(--muted); font-weight:700; margin-bottom:16px;}
+.title{
+  font-size:clamp(2.1rem, 4.4vw, 3.2rem); line-height:1.02; font-weight:800; font-family: "Space Grotesk", Inter, sans-serif;
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2)); -webkit-background-clip:text; color:transparent;
+  margin-bottom:12px;
+}
+.lead{ color:var(--muted); font-size:1.02rem; max-width:720px; margin-bottom:20px; }
+
+/* hero actions */
+.actions{ display:flex; gap:12px; align-items:center; margin-top:8px; }
+.small-pill{ padding:8px 10px; border-radius:999px; background:rgba(255,255,255,0.02); color:var(--muted); border:1px solid rgba(255,255,255,0.02); font-weight:700; }
+
+/* hero card */
+.hero-card{
+  width:100%; border-radius:18px; padding:18px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04); box-shadow:var(--card-shadow); display:flex; gap:12px; align-items:center;
+  backdrop-filter: blur(8px) saturate(120%);
+}
+.avatar{ width:120px; height:120px; border-radius:14px; overflow:hidden; border:2px solid rgba(255,255,255,0.04); box-shadow:0 8px 30px rgba(0,0,0,0.6); flex-shrink:0; }
+.avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+.meta h4{ margin-bottom:6px; font-size:1.05rem; }
+.meta p{ color:var(--muted); font-size:0.95rem; }
+
+/* glass-shine */
+.hero-card::after{
+  content:""; position:absolute; pointer-events:none; inset:auto 14px 14px 14px; height:40%; border-radius:12px;
+  background: linear-gradient(120deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  mix-blend-mode:overlay; transform:skewY(-6deg) translateY(-10px); opacity:0.9;
 }
 
-.hero h1{
-  font-size:3.7rem;
-  font-weight:700;
+/* --- Sections --- */
+.section{ padding:84px 20px; position:relative; z-index:3; }
+.section-title{ font-size:1rem; color:var(--muted); font-weight:800; margin-bottom:6px; letter-spacing:0.6px; display:block; text-transform:uppercase; }
+.section h2{ font-family:"Space Grotesk", Inter, sans-serif; font-size:1.9rem; margin-bottom:12px; color:transparent; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); -webkit-background-clip:text; }
+
+/* Skills */
+.skills-grid{ display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); margin-top:18px; }
+.skill{
+  padding:22px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04); transition:transform var(--trans), box-shadow var(--trans);
 }
+.skill:hover{ transform:translateY(-8px); box-shadow:0 26px 80px rgba(0,229,255,0.06); }
 
-.hero span{
-  background:linear-gradient(135deg,#00f5ff,#00ffa6);
-  -webkit-background-clip:text;
-  color:transparent;
+/* Projects */
+.projects-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:26px; margin-top:18px; }
+.project{
+  border-radius:16px; overflow:hidden; cursor:pointer; position:relative;
+  border:1px solid rgba(255,255,255,0.04); background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  transition:transform var(--trans), box-shadow var(--trans);
 }
+.project:hover{ transform:translateY(-10px); box-shadow:0 36px 120px rgba(0,229,255,0.06); }
+.project img{ width:100%; height:220px; object-fit:cover; display:block; }
+.project .pinfo{ padding:16px; }
+.pinfo h3{ margin-bottom:8px; }
+.pinfo p{ color:var(--muted); font-size:0.95rem; }
 
-.hero p{
-  margin-top:10px;
-  font-size:1.3rem;
-  opacity:0.9;
+/* project neon border on hover (magnetic) */
+.project::before{
+  content:""; position:absolute; inset:8px; border-radius:12px; pointer-events:none;
+  background: linear-gradient(120deg, rgba(0,229,255,0.03), rgba(116,255,156,0.02));
+  opacity:0; transition:opacity var(--trans);
 }
+.project:hover::before{ opacity:1; }
 
-.typewriter{
-  font-size:1.4rem;
-  margin-top:10px;
-  opacity:.9;
-  height:30px;
+/* --- Lightbox / Case study modal --- */
+.lightbox{ position:fixed; top:0; left:0; width:100%; height:100%; display:none; align-items:center; justify-content:center; background:rgba(2,6,23,0.85); backdrop-filter: blur(8px); z-index:60; padding:28px; }
+.lightbox .panel{ width:100%; max-width:1100px; height:85%; background:linear-gradient(180deg, #0b0f14, #081018); border-radius:14px; overflow:auto; border:1px solid rgba(255,255,255,0.04); box-shadow:0 50px 160px rgba(0,0,0,0.6); }
+.lightbox .panel .top{ display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid rgba(255,255,255,0.02); }
+.lightbox .panel .content{ padding:22px; color:var(--muted); line-height:1.6; }
+.lightbox .close{ position:absolute; right:36px; top:26px; font-size:36px; color:#fff; cursor:pointer; }
+
+/* --- CV modal with page-flip-style glow --- */
+.cv-modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:linear-gradient(rgba(2,6,23,0.7), rgba(2,6,23,0.8)); backdrop-filter: blur(10px); z-index:70; padding:28px; }
+.cv-frame{ width:92%; max-width:980px; height:86%; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; border:1px solid rgba(255,255,255,0.04); overflow:hidden; position:relative; box-shadow:0 40px 160px rgba(0,0,0,0.7); }
+.cv-frame iframe{ width:100%; height:100%; border:0; display:block; }
+
+/* page-flip shimmer */
+.cv-frame::after{
+  content:""; position:absolute; left:-30%; top:0; width:60%; height:100%; transform:skewX(-18deg) translateX(-6%); background:linear-gradient(90deg, rgba(255,255,255,0.00), rgba(255,255,255,0.08), rgba(255,255,255,0.00)); opacity:0.06; pointer-events:none;
+  animation:shimmer 2200ms linear infinite;
 }
+@keyframes shimmer{ 0%{ transform:skewX(-18deg) translateX(-40%);} 100%{ transform:skewX(-18deg) translateX(140%);} }
 
-/* PROFILE IMAGE */
-.hero-img{
-  margin-top:40px;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  overflow:hidden;
-  border:4px solid rgba(255,255,255,0.1);
-  box-shadow:0 0 40px rgba(0,255,255,0.3);
-  transform:translateY(10px);
-  animation:fadeUp 1.5s ease forwards;
-  opacity:0;
+/* --- Map --- */
+.map-wrap{ margin-top:14px; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); box-shadow:0 20px 60px rgba(0,0,0,0.6); height:420px; }
+
+/* --- Footer --- */
+.footer{ padding:32px 20px; text-align:center; color:rgba(255,255,255,0.6); }
+
+/* --- Responsive --- */
+@media (max-width:980px){
+  .hero-grid{ grid-template-columns:1fr; gap:26px; padding:18px; }
+  .avatar{ width:96px; height:96px; }
+  .project img{ height:180px; }
 }
-
-.hero-img img{ width:100%; height:100%; object-fit:cover; }
-
-/* BUTTON */
-.btn{
-  margin-top:40px;
-  padding:14px 35px;
-  border-radius:50px;
-  font-size:1rem;
-  border:1px solid rgba(255,255,255,0.2);
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
-  color:white;
-  text-decoration:none;
-  transition:.3s;
-}
-
-.btn:hover{
-  transform:translateY(-5px);
-  background:rgba(0,255,200,0.25);
-}
-
-/* SECTION */
-section{
-  padding:100px 10%;
-}
-
-.section-title{
-  text-align:center;
-  font-size:2.5rem;
-  margin-bottom:40px;
-}
-
-/* SKILLS */
-.skills-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
-}
-
-.skill-item{
-  background:rgba(255,255,255,0.04);
-  padding:25px;
-  border-radius:18px;
-  text-align:center;
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(8px);
-  transition:.3s;
-}
-
-.skill-item:hover{
-  transform:translateY(-10px) scale(1.05);
-  box-shadow:0 0 30px rgba(0,255,255,0.15);
-}
-
-/* PROJECTS GRID */
-.projects-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:40px;
-}
-
-.project-card{
-  background:rgba(255,255,255,0.05);
-  border-radius:20px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(8px);
-  transition:.3s;
-  cursor:pointer;
-}
-
-.project-card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 50px rgba(0,255,255,0.2);
-}
-
-.project-card img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-}
-
-/* CASE STUDY MODAL */
-.lightbox{
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(8px);
-  z-index:9999;
-}
-
-.lightbox-content{
-  width:80%;
-  max-width:900px;
-  background:#111;
-  padding:30px;
-  border-radius:20px;
-  overflow-y:auto;
-  max-height:90%;
-  border:1px solid rgba(0,255,255,0.2);
-  box-shadow:0 0 50px rgba(0,255,255,0.3);
-}
-
-.lightbox-close{
-  position:absolute;
-  top:20px; 
-  right:40px;
-  font-size:40px; 
-  cursor:pointer;
-  color:#fff;
-  transition:.3s;
-}
-
-.lightbox-close:hover{ color:#00ffe7; }
-
-/* MAP SECTION */
-.map-container{
-  width:100%;
-  height:400px;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 0 40px rgba(0,255,200,0.2);
-}
-
-/* CV MODAL */
-.cv-modal{
-    position:fixed;
-    top:0; left:0;
-    width:100%; 
-    height:100%;
-    background:rgba(0,0,0,0.8);
-    backdrop-filter:blur(10px);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
-
-.cv-content{
-    width:85%;
-    height:90%;
-    background:rgba(255,255,255,0.05);
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,0.1);
-    overflow:hidden;
-    box-shadow:0 0 50px rgba(0,255,255,0.3);
-    animation:zoomIn .4s ease;
-}
-
-.cv-content iframe{
-    width:100%;
-    height:100%;
-    border:none;
-}
-
-.closeCV{
-    position:absolute;
-    top:20px; 
-    right:30px;
-    font-size:40px;
-    cursor:pointer;
-    color:#fff;
-}
-
-@keyframes zoomIn {
-  from{ transform:scale(0.7); opacity:0; }
-  to  { transform:scale(1); opacity:1; }
-}
-
-footer{
-  text-align:center;
-  padding:40px;
-  opacity:.6;
+@media (max-width:560px){
+  .navlinks{ display:none; }
+  .hero-grid{ padding:12px; }
+  .title{ font-size:1.8rem; }
 }
 </style>
 </head>
-
 <body>
 
-<!-- FLOATING SHAPES -->
-<div class="shape"></div>
-<div class="shape"></div>
+<!-- Particles canvas and parallax -->
+<canvas id="particles" aria-hidden="true"></canvas>
+<div class="parallax" aria-hidden="true">
+  <div class="layer" id="l1" style="width:360px;height:360px;left:8%;top:10%;background:radial-gradient(circle,#00e5ff,transparent 40%);"></div>
+  <div class="layer" id="l2" style="width:280px;height:280px;right:6%;bottom:8%;background:radial-gradient(circle,#74ff9c,transparent 40%);"></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner container" role="navigation" aria-label="Main navigation">
+    <div class="brand">
+      <div class="logo">DY</div>
+      <span>David Yiaro</span>
+    </div>
+
+    <nav class="navlinks" role="navigation" aria-label="Site links">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <a class="cta" id="hireBtn" href="mailto:davidyiaro@gmail.com">Hire</a>
+    </nav>
+  </div>
+</header>
 
 <!-- HERO -->
-<div class="hero">
-  <h1>I am <span>David Yiaro</span></h1>
-  <p class="typewriter"></p>
+<section id="home" class="hero">
+  <div class="hero-grid container">
+    <div>
+      <div class="kicker">Digital Skills Trainer · Mentor</div>
+      <h1 class="title">I teach modern digital skills and build elegant web experiences.</h1>
+      <p class="lead">Graphic Design · Web Development · WordPress · Video & Audio · Social Media Strategy · Git & GitHub</p>
 
-  <div class="hero-img">
-    <img src="your-image.jpg">
+      <div class="actions">
+        <a class="cta" id="seeProjects" href="#projects">See Projects</a>
+        <button class="small-pill" id="viewCVBtn">View My CV</button>
+        <div style="width:10px"></div>
+        <div class="small-pill">Kimana, Loitokitok</div>
+      </div>
+
+      <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+        <span class="small-pill">Leadership Academy</span>
+        <span class="small-pill">Ajira For She</span>
+        <span class="small-pill">40 PCs Lab</span>
+      </div>
+    </div>
+
+    <aside class="hero-card" aria-hidden="true">
+      <div class="avatar">
+        <img src="profile.jpg" alt="David Yiaro — profile photo (replace profile.jpg)">
+      </div>
+      <div class="meta">
+        <h4>David Yiaro</h4>
+        <p>Digital Skills Trainer · Graphic & Web Developer</p>
+        <div style="margin-top:10px; display:flex; gap:8px;">
+          <a class="small-pill" href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+          <a class="small-pill" href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </aside>
   </div>
+</section>
 
-  <a class="btn" id="viewCV">View My CV</a>
-</div>
+<!-- ABOUT -->
+<section id="about" class="section container">
+  <span class="section-title">About</span>
+  <h2>Empowering students with practical digital skills</h2>
+  <p style="color:var(--muted); margin-top:12px; max-width:880px;">
+    I run hands-on training programmes and build practical projects that prepare learners for digital jobs.
+    My focus: practical, up-to-date skills in design, web, multimedia, and Git-based collaboration.
+  </p>
+</section>
 
-<section>
-  <h2 class="section-title">Skills</h2>
+<!-- SKILLS -->
+<section id="skills" class="section container">
+  <span class="section-title">Skills</span>
+  <h2>What I Teach & Build</h2>
+
   <div class="skills-grid">
-    <div class="skill-item">Graphic Design</div>
-    <div class="skill-item">PHP / SQL / JS / HTML / CSS</div>
-    <div class="skill-item">WordPress</div>
-    <div class="skill-item">Video Editing</div>
-    <div class="skill-item">Audio Editing</div>
-    <div class="skill-item">Github Development</div>
+    <div class="skill">
+      <div style="font-weight:800; margin-bottom:8px;">Graphic Design</div>
+      <div style="color:var(--muted)">Branding, posters, social creatives, basic UI design and Figma workflows.</div>
+    </div>
+
+    <div class="skill">
+      <div style="font-weight:800; margin-bottom:8px;">Web Development</div>
+      <div style="color:var(--muted)">PHP, MySQL, JS, modern HTML/CSS, responsive and accessible web apps.</div>
+    </div>
+
+    <div class="skill">
+      <div style="font-weight:800; margin-bottom:8px;">WordPress</div>
+      <div style="color:var(--muted)">Custom themes, admin workflows, lightweight production sites.</div>
+    </div>
+
+    <div class="skill">
+      <div style="font-weight:800; margin-bottom:8px;">Video & Audio</div>
+      <div style="color:var(--muted)">Editing workflows, short-form videos, podcast basics and exports.</div>
+    </div>
+
+    <div class="skill">
+      <div style="font-weight:800; margin-bottom:8px;">Social Media</div>
+      <div style="color:var(--muted)">Content strategy, scheduling, performance tracking.</div>
+    </div>
+
+    <div class="skill">
+      <div style="font-weight:800; margin-bottom:8px;">Git & GitHub</div>
+      <div style="color:var(--muted)">Repos, branches, GitHub Pages and collaborative workflows.</div>
+    </div>
   </div>
 </section>
 
-<section id="projects">
-  <h2 class="section-title">Projects</h2>
-  <div class="projects-grid">
-    <div class="project-card" data-project="1">
-      <img src="https://i.imgur.com/YV8eqjO.jpeg">
+<!-- PROJECTS -->
+<section id="projects" class="section container">
+  <span class="section-title">Projects</span>
+  <h2>Selected Work & Case Studies</h2>
+
+  <div class="projects-grid" id="projectsGrid">
+    <div class="project" data-id="p1" aria-label="Open case study: Personal Portfolio">
+      <img src="https://i.imgur.com/YV8eqjO.jpeg" alt="Personal portfolio screenshot">
+      <div class="pinfo"><h3>Personal Portfolio — Premium UI</h3><p>Single-file, glassmorphic, animated portfolio.</p></div>
     </div>
 
-    <div class="project-card" data-project="2">
-      <img src="https://i.imgur.com/Mq3Uplk.jpeg">
+    <div class="project" data-id="p2" aria-label="Open case study: WordPress Theme">
+      <img src="https://i.imgur.com/Mq3Uplk.jpeg" alt="WordPress project">
+      <div class="pinfo"><h3>WordPress Custom Theme</h3><p>Editable, lightweight theme for training purposes.</p></div>
     </div>
 
-    <div class="project-card" data-project="3">
-      <img src="https://i.imgur.com/Dw5JH8H.jpeg">
+    <div class="project" data-id="p3" aria-label="Open case study: Inventory System">
+      <img src="https://i.imgur.com/Dw5JH8H.jpeg" alt="Inventory system">
+      <div class="pinfo"><h3>Shop Inventory System</h3><p>PHP + SQL system with modals and modern UI.</p></div>
     </div>
   </div>
 </section>
 
-<section>
-  <h2 class="section-title">My Location — Kimana, Loitokitok</h2>
-  <div class="map-container">
-    <iframe 
-      width="100%" height="100%" frameborder="0" style="border:0"
-      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDq6jYxR2f_fake_key_here&q=Kimana,Loitokitok,Kenya" 
-      allowfullscreen>
-    </iframe>
+<!-- LOCATION & MAP -->
+<section id="contact" class="section container">
+  <span class="section-title">Location</span>
+  <h2>Kimana, Loitokitok — Kenya</h2>
+  <p style="color:var(--muted); margin-top:12px; max-width:840px;">
+    Based in Kimana, Loitokitok. Available for training, local and remote projects. Below is an interactive map pin for my current area.
+  </p>
+
+  <div style="margin-top:18px;">
+    <div class="map-wrap">
+      <!-- Embed map without API key: using q= ; works in browsers -->
+      <iframe
+        width="100%" height="100%" frameborder="0" style="border:0"
+        src="https://www.google.com/maps?q=Kimana,Loitokitok,Kenya&output=embed"
+        allowfullscreen="" aria-label="Map showing Kimana, Loitokitok, Kenya"></iframe>
+    </div>
   </div>
 </section>
 
-<footer>
-  © 2025 David Yiaro — All Rights Reserved
+<!-- FOOTER -->
+<footer class="footer">
+  <div style="max-width:var(--max-w); margin:0 auto; padding:0 20px;">
+    © 2025 David Yiaro · Digital Skills Trainer · Built with ❤️ and code
+  </div>
 </footer>
 
-<!-- CV MODAL -->
-<div id="cvModal" class="cv-modal">
-  <div class="cv-content">
-    <span class="closeCV">&times;</span>
-    <iframe src="cv.pdf"></iframe>
+<!-- Lightbox / Case Study -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="panel" role="document" id="casePanel">
+    <div class="top">
+      <div>
+        <strong id="caseTitle">Case Study</strong>
+        <div id="caseSubtitle" style="color:var(--muted); font-size:0.95rem; margin-top:6px;"></div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button id="prevCase" class="small-pill" aria-label="Previous case">Prev</button>
+        <button id="nextCase" class="small-pill" aria-label="Next case">Next</button>
+      </div>
+    </div>
+
+    <div class="content" id="caseContent" tabindex="0" style="padding:20px; color:var(--muted);"></div>
   </div>
+  <div class="close" id="closeLightbox" aria-label="Close">✕</div>
 </div>
 
-<!-- PROJECT CASE STUDY LIGHTBOX -->
-<div id="lightbox" class="lightbox">
-  <span class="lightbox-close">&times;</span>
-  <div class="lightbox-content" id="lightboxContent"></div>
+<!-- CV Modal -->
+<div id="cvModal" class="cv-modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="cv-frame" role="document">
+    <iframe id="cvFrame" src="cv.pdf" title="David Yiaro CV (PDF)"></iframe>
+  </div>
 </div>
 
 <script>
-/* TYPEWRITER */
-const texts = [
-  "Digital Skills Trainer.",
-  "Graphic Designer.",
-  "Website Developer.",
-  "WordPress Expert.",
-  "Tech Enthusiast."
-];
-let i = 0, char = 0;
-function type(){
-  if(char < texts[i].length){
-    document.querySelector('.typewriter').textContent += texts[i].charAt(char);
-    char++; setTimeout(type, 80);
-  } else {
-    setTimeout(() => {
-      document.querySelector('.typewriter').textContent = "";
-      char = 0; i = (i+1) % texts.length; type();
-    }, 1500);
+/* ======================
+   INTERACTIONS & EFFECTS
+   All JS inline per request
+   ====================== */
+
+/* Utility helpers */
+const $ = (s, ctx=document) => ctx.querySelector(s);
+const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+
+/* --- Particles (subtle) --- */
+(function particles(){
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = innerWidth;
+  let H = canvas.height = innerHeight;
+  const stars = [];
+  const COUNT = Math.max(40, Math.floor((W*H)/80000));
+  for(let i=0;i<COUNT;i++){
+    stars.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: Math.random()*1.6 + 0.2,
+      vx: (Math.random()-0.5)*0.2,
+      vy: (Math.random()-0.5)*0.2,
+      a: Math.random()*0.6 + 0.2
+    });
   }
-}
-type();
+  function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+  window.addEventListener('resize', resize);
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // faint gradient overlay
+    const g = ctx.createLinearGradient(0,0,W,H);
+    g.addColorStop(0, 'rgba(0,229,255,0.01)');
+    g.addColorStop(1, 'rgba(116,255,156,0.01)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,W,H);
+    stars.forEach(s=>{
+      s.x += s.vx; s.y += s.vy;
+      if(s.x<0) s.x = W; if(s.x>W) s.x = 0;
+      if(s.y<0) s.y = H; if(s.y>H) s.y = 0;
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
-/* CV VIEWER */
-const cvModal = document.getElementById("cvModal");
-document.getElementById("viewCV").onclick = () => cvModal.style.display = "flex";
-document.querySelector(".closeCV").onclick = () => cvModal.style.display = "none";
+/* --- Parallax pointer layer subtle follow --- */
+(function parallax(){
+  const l1 = document.getElementById('l1');
+  const l2 = document.getElementById('l2');
+  window.addEventListener('mousemove', (e)=>{
+    const x = (e.clientX / innerWidth - 0.5) * 40;
+    const y = (e.clientY / innerHeight - 0.5) * 40;
+    l1.style.transform = `translate(${x*0.6}px, ${y*0.6}px)`;
+    l2.style.transform = `translate(${x*-0.4}px, ${y*-0.4}px)`;
+  });
+})();
 
-/* PROJECT LIGHTBOX */
-const projectData = {
-  1:`<h2>Personal Portfolio</h2><p>A modern animated portfolio.</p>`,
-  2:`<h2>WordPress Site</h2><p>Custom WP training platform.</p>`,
-  3:`<h2>Shop Inventory System</h2><p>Advanced PHP + SQL system.</p>`
-};
-
-document.querySelectorAll(".project-card").forEach(card=>{
-  card.addEventListener("click", ()=>{
-    const id = card.getAttribute("data-project");
-    document.getElementById("lightboxContent").innerHTML = projectData[id];
-    document.getElementById("lightbox").style.display = "flex";
+/* --- Smooth anchor scrolling and active nav --- */
+$$('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', (ev)=>{
+    const targ = document.querySelector(a.getAttribute('href'));
+    if(targ){ ev.preventDefault(); targ.scrollIntoView({behavior:'smooth', block:'start'}); }
   });
 });
 
-document.querySelector(".lightbox-close").onclick = () => {
-  document.getElementById("lightbox").style.display = "none";
+/* Active nav based on scroll */
+const navLinks = $$('.navlinks a');
+const sections = navLinks.map(a => document.querySelector(a.getAttribute('href')));
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      const id = '#' + en.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+    }
+  });
+}, {root:null, threshold:0.32});
+sections.forEach(s => s && obs.observe(s));
+
+/* --- Typewriter intro (subtle) --- */
+(function typewriter(){
+  const lines = ["Digital Skills Trainer.", "Graphic Designer.", "Web & WordPress Developer.", "Video & Audio Editor."];
+  const el = document.querySelector('.lead');
+  let idx = 0, ch = 0;
+  function tick(){
+    el.textContent = lines[idx].slice(0, ch);
+    ch++;
+    if(ch > lines[idx].length){
+      setTimeout(()=>{ idx = (idx+1)%lines.length; ch = 0; tick(); }, 1400);
+    } else setTimeout(tick, 60);
+  }
+  tick();
+})();
+
+/* --- CV Modal (full-screen) --- */
+const cvModal = document.getElementById('cvModal');
+const viewCVBtn = document.getElementById('viewCVBtn');
+viewCVBtn.addEventListener('click', ()=> {
+  cvModal.style.display = 'flex';
+  cvModal.setAttribute('aria-hidden','false');
+  // subtle focus
+  setTimeout(()=> document.getElementById('cvFrame').focus(), 300);
+});
+cvModal.addEventListener('click', (e)=>{
+  if(e.target === cvModal) closeCV();
+});
+function closeCV(){ cvModal.style.display='none'; cvModal.setAttribute('aria-hidden','true'); }
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeCV(); });
+
+/* --- Projects Lightbox / Case Studies --- */
+const projects = {
+  p1: {
+    title: "Personal Portfolio — Premium UI",
+    subtitle: "Single-file, modern, glassmorphic portfolio",
+    html: `
+      <p style="color:var(--muted);">A handcrafted portfolio demonstrating modern UI patterns: glassmorphism, smooth animation, and accessible structure. Built to be deployable to GitHub Pages.</p>
+      <h4 style="margin-top:14px;">Highlights</h4>
+      <ul style="color:var(--muted)">
+        <li>Glass cards, animated hero, particle aura</li>
+        <li>CV reader modal and case-study lightbox</li>
+        <li>Responsive, accessible, and performative</li>
+      </ul>
+      <img src="https://i.imgur.com/YV8eqjO.jpeg" style="width:100%; border-radius:8px; margin-top:12px;"/>
+    `
+  },
+  p2: {
+    title: "WordPress Custom Theme",
+    subtitle: "Training-focused WP theme",
+    html: `
+      <p style="color:var(--muted);">A lightweight WordPress starter theme optimized for trainers and NGOs: easy-to-edit templates, widget-ready areas, and simple admin instructions.</p>
+      <h4 style="margin-top:14px;">Why it matters</h4>
+      <ul style="color:var(--muted)">
+        <li>Low maintenance & fast</li>
+        <li>Accessible content blocks for non-tech admins</li>
+      </ul>
+      <img src="https://i.imgur.com/Mq3Uplk.jpeg" style="width:100%; border-radius:8px; margin-top:12px;"/>
+    `
+  },
+  p3: {
+    title: "Shop Inventory System",
+    subtitle: "PHP + SQL admin dashboard",
+    html: `
+      <p style="color:var(--muted);">A transactional inventory system with modal flows, add/deduct stock, and clean reporting UI — designed for small shops like MAMA WANGARI SHOP.</p>
+      <h4 style="margin-top:14px;">Core features</h4>
+      <ul style="color:var(--muted)">
+        <li>Add/Deduct stock with modals</li>
+        <li>Sales history & product valuation</li>
+      </ul>
+      <img src="https://i.imgur.com/Dw5JH8H.jpeg" style="width:100%; border-radius:8px; margin-top:12px;"/>
+    `
+  }
 };
+const lightbox = document.getElementById('lightbox');
+const casePanel = document.getElementById('casePanel');
+const caseTitle = document.getElementById('caseTitle');
+const caseSubtitle = document.getElementById('caseSubtitle');
+const caseContent = document.getElementById('caseContent');
+const closeLightbox = document.getElementById('closeLightbox');
+const projectEls = $$('.project');
 
+let currentIndex = 0;
+const keys = Object.keys(projects);
+
+projectEls.forEach((el, idx)=>{
+  el.addEventListener('click', ()=> openCase(keys[idx]));
+});
+function openCase(id){
+  const p = projects[id];
+  caseTitle.textContent = p.title;
+  caseSubtitle.textContent = p.subtitle;
+  caseContent.innerHTML = p.html;
+  lightbox.style.display = 'flex';
+  lightbox.setAttribute('aria-hidden','false');
+  currentIndex = keys.indexOf(id);
+}
+function closeCase(){ lightbox.style.display = 'none'; lightbox.setAttribute('aria-hidden','true'); }
+closeLightbox.addEventListener('click', closeCase);
+lightbox.addEventListener('click', (e)=> { if(e.target === lightbox) closeCase(); });
+document.getElementById('prevCase').addEventListener('click', ()=>{
+  currentIndex = (currentIndex - 1 + keys.length) % keys.length; openCase(keys[currentIndex]);
+});
+document.getElementById('nextCase').addEventListener('click', ()=>{
+  currentIndex = (currentIndex + 1) % keys.length; openCase(keys[currentIndex]);
+});
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeCase(); });
+
+/* --- Magnetic hover effect for project images (small) --- */
+projectEls.forEach(el=>{
+  const img = el.querySelector('img');
+  el.addEventListener('mousemove', (ev)=>{
+    const rect = el.getBoundingClientRect();
+    const x = ev.clientX - rect.left - rect.width/2;
+    const y = ev.clientY - rect.top - rect.height/2;
+    img.style.transform = `translate(${x*0.02}px, ${y*0.02}px) scale(1.02)`;
+  });
+  el.addEventListener('mouseleave', ()=> img.style.transform = 'translate(0,0) scale(1)');
+});
+
+/* --- Tiny accessibility improvements --- */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Tab') document.body.classList.add('show-focus');
+});
+
+/* Prevent focus outline removal for keyboard users */
+const focusables = 'a,button,input,textarea';
+$$(focusables).forEach(el=>{
+  el.addEventListener('focus', ()=> el.style.outline = '2px solid rgba(0,229,255,0.18)');
+  el.addEventListener('blur', ()=> el.style.outline = 'none');
+});
+
+/* --- Optional: replace profile.jpg or fallback --- */
+(function profileFallback(){
+  const img = document.querySelector('.avatar img');
+  img.addEventListener('error', ()=> img.src = 'https://i.imgur.com/QJV6v8V.jpeg');
+})();
 </script>
-
 </body>
 </html>
